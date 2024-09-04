@@ -1,0 +1,49 @@
+This project marks my initial foray into the world of trading and fintech, driven by my fascination with how machine learning (ML) can be leveraged to make informed trading decisions. Inspired by Nicholas Renotte’s work, I set out to build a trading bot that not only executes trades but also integrates sentiment analysis from financial news to influence its decisions.
+
+The bot is built using the Lumibot framework and the Alpaca API, allowing it to simulate trades in a paper trading environment, which means no real money is involved. The core idea is to create a dynamic trading strategy that adapts to market conditions by analyzing recent news and determining whether the overall sentiment is positive or negative. This sentiment, combined with other market indicators, guides the bot in deciding when to buy or sell a particular stock.
+
+The project is divided into two main Python scripts: one for defining the trading strategy and handling the trading logic, and another for conducting the sentiment analysis using a pre-trained ML model. Together, these scripts provide a comprehensive look into how machine learning and algorithmic trading can be combined to create a sophisticated trading bot.
+
+Python File 1: ML_Trader.py
+
+Description:
+
+This script is my first attempt at building a trading bot, inspired by Nicholas Renotte’s work. I’m using the Alpaca API to interact with the stock market and Lumibot as the framework for developing the trading strategy. The bot I’ve created leverages machine learning to analyze news sentiment and make informed trading decisions. My goal is to see how ML can be integrated into trading by backtesting this strategy on historical data.
+
+Functionality:
+
+	1.	Setting Up the Environment:
+	•	I start by importing essential libraries like Lumibot for the trading framework and Alpaca for accessing market data.
+	•	My Alpaca API credentials are stored in the Alpaca_Credits dictionary, ensuring secure connection and enabling paper trading (no real money involved).
+	2.	ML-Driven Trading Strategy:
+	•	The core of the script is the ML_Trader class, which extends the Strategy class from Lumibot. This class implements all the trading logic and serves as the backbone of my trading bot.
+	•	The bot initializes with parameters such as the stock symbol to trade (e.g., SPY) and the amount of cash at risk per trade. It also connects to the Alpaca API for real-time market data.
+	3.	Sentiment Analysis Integration:
+	•	A significant feature of my bot is its ability to use sentiment analysis from financial news to guide trading decisions. The bot fetches news related to the selected stock over the past three days and runs it through a sentiment analysis model.
+	•	Based on the sentiment (positive or negative) and the model’s confidence level, the bot decides whether to buy or sell the stock. It uses “bracket orders” to automatically set take-profit and stop-loss levels.
+	4.	Backtesting the Strategy:
+	•	To evaluate the bot’s performance, I backtest it using historical data from Yahoo Finance. This allows me to see how the bot would have performed in the past, helping me gauge its potential effectiveness.
+
+Python File 2: finbert1_util.py
+
+Description:
+
+This script is focused on sentiment analysis using a pre-trained transformer model called FinBERT. Nicholas Renotte’s work inspired me to explore how analyzing the sentiment of financial news can influence trading decisions. This script plays a crucial role in my trading bot by providing sentiment data that informs trading actions.
+
+Functionality:
+
+	1.	Setup and Initialization:
+	•	The script imports necessary libraries like transformers for loading FinBERT, and torch for handling tensor computations. It also checks if a GPU is available to speed up the processing.
+	2.	Model and Tokenizer Initialization:
+	•	I load FinBERT’s tokenizer and model, specifically fine-tuned for financial sentiment analysis. This setup allows me to input news headlines and receive a sentiment classification.
+	3.	Sentiment Estimation Function:
+	•	The estimate_sentiment(news) function processes a list of news headlines, tokenizes them, and runs them through FinBERT. It returns the probability of the most likely sentiment (positive, negative, or neutral) along with the sentiment label.
+	•	If no news is provided, the function defaults to a neutral sentiment.
+	4.	Test and Demonstration:
+	•	In the __main__ block, I’ve included a simple test to demonstrate how the sentiment analysis works. The script prints the sentiment and its probability for a couple of sample news headlines. It also checks if a GPU is available for running the model.
+
+Overall Perspective:
+
+Inspired by Nicholas Renotte, these scripts represent my first steps into the world of algorithmic trading and fintech. The first script, ML_Trader.py, is my attempt at creating a trading bot that uses both historical data and sentiment analysis to make trading decisions. The second script, finbert1_util.py, provides the sentiment analysis by evaluating financial news, which is a crucial component of the bot’s decision-making process.
+
+Together, these scripts showcase my effort to integrate machine learning with trading, helping me understand how automated systems can analyze market conditions and make informed decisions.
